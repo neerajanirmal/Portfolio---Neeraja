@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neeraja Nair — Full-Stack Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1426;
+    --surface: #171F3B;
+    --surface-2: #1E2748;
+    --line: #2B3563;
+    --text: #EEF0FA;
+    --muted: #8C95BD;
+    --gold: #E8B86D;
+    --gold-dim: rgba(232,184,109,0.12);
+    --mint: #6FCF97;
+    --mint-dim: rgba(111,207,151,0.12);
+    --radius: 10px;
+    --mono: 'IBM Plex Mono', monospace;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --voice: 'Newsreader', serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  a{ color: inherit; text-decoration: none; }
+  em{ font-family: var(--voice); font-style: italic; font-weight: 500; color: var(--gold); }
+
+  .wrap{ max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- AMBIENT BACKGROUND ---------- */
+  .bg-field{ position: fixed; inset: 0; z-index: 0; overflow: hidden; pointer-events: none; }
+  .bg-field span{
+    position: absolute;
+    font-family: var(--mono);
+    color: var(--line);
+    opacity: 0;
+    font-size: 1.1rem;
+    animation: drift linear infinite;
+  }
+  @keyframes drift{
+    0%{ transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%{ opacity: 0.4; }
+    90%{ opacity: 0.4; }
+    100%{ transform: translateY(-120vh) rotate(20deg); opacity: 0; }
+  }
+  .grid-glow{
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background:
+      radial-gradient(circle at 12% 8%, rgba(232,184,109,0.07), transparent 32%),
+      radial-gradient(circle at 88% 22%, rgba(111,207,151,0.06), transparent 35%);
+  }
+  nav, header, section, footer{ position: relative; z-index: 1; }
+
+  /* ---------- NAV ---------- */
+  nav{
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(15,20,38,0.82);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap{ display:flex; align-items:center; justify-content:space-between; height: 64px; gap: 18px; }
+  .nav-mark{ font-family: var(--mono); font-weight: 600; font-size: 0.95rem; letter-spacing: 0.02em; }
+  .nav-mark span{ color: var(--gold); }
+  .nav-links{ display:flex; gap: 28px; font-family: var(--mono); font-size: 0.8rem; }
+  .nav-links a{ color: var(--muted); transition: color 0.2s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible{ color: var(--gold); }
+  .nav-links a:focus-visible{ outline: 1px dashed var(--gold); outline-offset: 4px; }
+  .nav-right{ display:flex; align-items:center; gap: 14px; }
+  @media (max-width: 680px){ .nav-links{ display:none; } }
+
+  .icon-btn{
+    width: 38px; height: 38px;
+    display:inline-flex; align-items:center; justify-content:center;
+    border: 1px solid var(--line); border-radius: 6px;
+    transition: all 0.25s ease;
+  }
+  .icon-btn:hover{ border-color: var(--gold); color: var(--gold); transform: translateY(-2px) rotate(-6deg); }
+  .icon-btn svg{ width: 18px; height: 18px; }
+
+  /* ---------- HERO ---------- */
+  header.hero{ padding: 70px 0 60px; }
+
+  .status-chip{
+    position: absolute;
+    top: 18px; right: 28px;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 6px 12px 6px 9px;
+    display:flex; align-items:center; gap:7px;
+    background: var(--surface);
+    animation: floaty 5s ease-in-out infinite;
+  }
+  .status-chip .dot{ width:6px; height:6px; border-radius:50%; background: var(--mint); }
+  @keyframes floaty{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(-5px); } }
+  @media (max-width: 760px){ .status-chip{ display:none; } }
+
+  .eyebrow{
+    font-family: var(--mono); color: var(--gold); font-size: 0.82rem;
+    letter-spacing: 0.04em; display:flex; align-items:center; gap: 10px; margin-bottom: 22px;
+  }
+  .eyebrow::before{
+    content:''; width:7px; height:7px; border-radius:50%; background: var(--mint);
+    animation: pulse 2.2s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 0 0 0 rgba(111,207,151,0.5); }
+    70%{ box-shadow: 0 0 0 7px rgba(111,207,151,0); }
+    100%{ box-shadow: 0 0 0 0 rgba(111,207,151,0); }
+  }
+
+  h1.headline{
+    font-family: var(--mono);
+    font-weight: 700;
+    font-size: clamp(2.1rem, 6.4vw, 3.85rem);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+    margin-bottom: 22px;
+    max-width: 880px;
+  }
+  .hero-sub{ color: var(--muted); font-size: clamp(1rem, 2.1vw, 1.18rem); max-width: 600px; margin-bottom: 34px; }
+  .hero-sub strong{ color: var(--text); font-weight: 600; }
+
+  .cta-row{ display:flex; gap: 14px; flex-wrap: wrap; margin-bottom: 50px; }
+  .btn{
+    font-family: var(--mono); font-size: 0.85rem; padding: 12px 20px; border-radius: 6px;
+    border: 1px solid var(--line); transition: all 0.2s ease; display:inline-flex; align-items:center; gap: 8px;
+  }
+  .btn-solid{ background: var(--gold); color: #1A1408; border-color: var(--gold); font-weight: 600; }
+  .btn-solid:hover{ background: #f0c987; transform: translateY(-2px); }
+  .btn-ghost{ color: var(--text); }
+  .btn-ghost:hover{ border-color: var(--gold); color: var(--gold); transform: translateY(-2px); }
+  .btn:focus-visible{ outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .stats-row{ display:flex; gap: 44px; margin: 0 0 48px; flex-wrap: wrap; }
+  .stat{ font-family: var(--mono); }
+  .stat .num{ font-size: 2.1rem; font-weight: 700; color: var(--gold); display:flex; align-items:baseline; gap: 2px; }
+  .stat .label{ font-size: 0.72rem; color: var(--muted); letter-spacing: 0.03em; margin-top: 2px; }
+
+  .scroll-cue{
+    font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+    display:flex; align-items:center; gap: 8px; margin-top: 8px;
+  }
+  .scroll-cue .arrow{ animation: bob 1.6s ease-in-out infinite; }
+  @keyframes bob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(4px); } }
+
+  /* ---------- SCHEMA DEMO ---------- */
+  .demo{
+    display:grid; grid-template-columns: 1fr 1fr; gap: 1px;
+    background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+  }
+  @media (max-width: 760px){ .demo{ grid-template-columns: 1fr; } }
+  .pane{ background: var(--surface); }
+  .pane-head{
+    display:flex; align-items:center; justify-content:space-between; padding: 12px 18px;
+    border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.03em;
+  }
+  .dots{ display:flex; gap:6px; }
+  .dots span{ width:8px; height:8px; border-radius:50%; background: var(--line); }
+  .code{
+    font-family: var(--mono); font-size: 0.82rem; padding: 20px 18px; min-height: 260px;
+    color: #B8C0E0; white-space: pre-wrap; word-break: break-word;
+  }
+  .code .k{ color: var(--mint); } .code .s{ color: var(--gold); } .code .p{ color: var(--muted); }
+  .cursor{ display:inline-block; width: 7px; height: 1em; background: var(--gold); vertical-align: -2px; animation: blink 1s steps(2) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+  .render-status{ font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+  .render-status .blip{ color: var(--mint); }
+  .preview{ padding: 20px 18px; min-height: 260px; display:flex; align-items:center; justify-content:center; }
+  .card{
+    width: 100%; background: var(--surface-2); border: 1px solid var(--line); border-radius: 8px; padding: 22px;
+    opacity: 0; transform: translateY(8px); transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .card.show{ opacity:1; transform: translateY(0); }
+  .card-row{ display:flex; justify-content: space-between; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 0.85rem; }
+  .card-row:last-child{ border-bottom: none; }
+  .card-row .field{ color: var(--muted); font-family: var(--mono); font-size: 0.74rem; text-transform: lowercase; }
+  .card-row .val{ color: var(--text); font-weight: 500; text-align: right; }
+
+  /* ---------- SECTIONS ---------- */
+  section{ padding: 64px 0; border-top: 1px solid var(--line); }
+  .sec-label{ font-family: var(--mono); color: var(--gold); font-size: 0.78rem; letter-spacing: 0.06em; margin-bottom: 10px; }
+  h2{ font-family: var(--mono); font-size: clamp(1.5rem, 3.4vw, 2.1rem); font-weight: 600; margin-bottom: 32px; max-width: 760px; line-height: 1.3; }
+
+  .fade-up{ opacity: 0; transform: translateY(16px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-up.in{ opacity:1; transform: translateY(0); }
+
+  .summary p{ color: var(--muted); max-width: 680px; font-size: 1.04rem; }
+  .summary strong{ color: var(--text); }
+
+  /* ---------- JOURNEY ---------- */
+  .journey{ position:relative; padding-left: 30px; }
+  .journey-track{ position:absolute; left:5px; top:6px; bottom:6px; width:1px; background: var(--line); }
+  .journey-progress{ position:absolute; left:5px; top:6px; width:1px; height:0%; background: linear-gradient(var(--gold), var(--mint)); transition: height 0.1s linear; }
+  .jstep{ position:relative; padding-bottom: 56px; display:grid; grid-template-columns: 1fr 1fr; gap: 26px; align-items:start; }
+  .jstep:last-child{ padding-bottom:0; }
+  @media (max-width: 760px){ .jstep{ grid-template-columns: 1fr; } }
+  .jstep::before{
+    content:''; position:absolute; left:-30px; top:6px; width:12px; height:12px; border-radius:50%;
+    background: var(--bg); border: 2px solid var(--line); transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  }
+  .jstep.in::before{ border-color: var(--gold); box-shadow: 0 0 0 4px var(--gold-dim); }
+  .jstep .jdate{ font-family: var(--mono); color: var(--muted); font-size: 0.74rem; letter-spacing:0.03em; margin-bottom: 6px; display:block; }
+  .jstep h3{ font-size: 1.18rem; font-weight: 600; margin-bottom: 10px; }
+  .jstep h3 em{ font-weight: 500; }
+  .jstep p{ color: var(--muted); font-size: 0.94rem; }
+  .jstep .jtag{ font-family: var(--mono); font-size: 0.7rem; color: var(--mint); margin-top: 10px; display:inline-block; }
+
+  .jvisual{
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow:hidden;
+    align-self: start; transition: border-color 0.3s ease;
+  }
+  .jstep:hover .jvisual{ border-color: var(--gold); }
+  .jvisual-head{ padding: 9px 14px; border-bottom: 1px solid var(--line); color: var(--muted); font-family: var(--mono); font-size: 0.68rem; display:flex; justify-content:space-between; align-items:center; }
+  .jvisual svg{ display:block; width:100%; height:auto; }
+
+  /* ---------- PROJECTS ---------- */
+  .proj-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); gap: 20px; }
+  .proj-card{
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden;
+    position: relative; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    transform-style: preserve-3d; will-change: transform;
+  }
+  .proj-card::before{
+    content:''; position: absolute; inset: -1px; border-radius: var(--radius);
+    background: radial-gradient(circle 170px at var(--mx,50%) var(--my,50%), rgba(232,184,109,0.18), transparent 70%);
+    opacity: 0; transition: opacity 0.3s ease; pointer-events: none;
+  }
+  .proj-card:hover{ border-color: var(--gold); box-shadow: 0 16px 36px -18px rgba(0,0,0,0.55); }
+  .proj-card:hover::before{ opacity: 1; }
+  .proj-head{
+    display:flex; align-items:center; justify-content:space-between; padding: 12px 18px;
+    border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.72rem; color: var(--muted);
+  }
+  .proj-head .dots span{ background: var(--line); }
+  .proj-body{ padding: 20px 18px 22px; }
+  .proj-status{ font-family: var(--mono); font-size: 0.66rem; color: var(--mint); background: var(--mint-dim); border-radius: 4px; padding: 3px 8px; margin-bottom: 14px; display:inline-block; }
+  .proj-title{ font-weight: 600; font-size: 1.08rem; margin-bottom: 8px; }
+  .proj-desc{ color: var(--muted); font-size: 0.9rem; margin-bottom: 16px; }
+  .proj-tags{ display:flex; flex-wrap:wrap; gap: 7px; }
+  .proj-tags span{ font-family: var(--mono); font-size: 0.68rem; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; }
+
+  /* ---------- SKILLS ---------- */
+  .skills-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
+  .skill-card{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; transition: border-color 0.25s ease, transform 0.25s ease; }
+  .skill-card:hover{ border-color: var(--gold); transform: translateY(-3px); }
+  .skill-glyph{ font-family: var(--mono); font-size: 1.3rem; color: var(--gold); margin-bottom: 12px; display:block; }
+  .skill-cat{ font-weight: 600; font-size: 0.95rem; margin-bottom: 12px; }
+  .skill-card ul{ list-style:none; display:flex; flex-direction:column; gap: 7px; }
+  .skill-card li{ color: var(--muted); font-size: 0.85rem; font-family: var(--mono); }
+
+  /* ---------- NEXT ---------- */
+  .next-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  @media (max-width: 760px){ .next-grid{ grid-template-columns: 1fr; } }
+  .next-card{ border-left: 2px solid var(--gold); padding-left: 18px; }
+  .next-card .nk{ font-family: var(--mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 8px; display:block; }
+  .next-card p{ color: var(--muted); font-size: 0.92rem; }
+
+  /* ---------- TERMINAL CONTACT ---------- */
+  .terminal{
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow:hidden; max-width: 640px; margin: 0 auto;
+  }
+  .terminal .term-head{ display:flex; align-items:center; justify-content:space-between; padding: 12px 18px; border-bottom: 1px solid var(--line); font-family: var(--mono); font-size: 0.72rem; color: var(--muted); }
+  .terminal .term-body{ padding: 26px 24px; font-family: var(--mono); font-size: 0.86rem; line-height: 2; }
+  .terminal .prompt{ color: var(--mint); }
+  .terminal .cmd{ color: var(--text); }
+  .terminal .out{ color: var(--muted); display:block; padding: 2px 0 14px 0; }
+  .terminal .out a{ color: var(--gold); }
+  .terminal .out a:hover{ text-decoration: underline; }
+  .terminal .ok{ color: var(--mint); }
+
+  footer{ padding: 70px 0 50px; text-align:center; }
+  .foot-cta{ margin-top: 28px; }
+  .foot-note{ color: var(--muted); font-size: 0.78rem; font-family: var(--mono); margin-top: 30px; }
+
+  /* journey illustration motion */
+  #armSeg1{ animation: armSwing1 3.2s ease-in-out infinite; }
+  #armSeg2{ animation: armSwing2 3.2s ease-in-out infinite; }
+  #gripper{ animation: gripPulse 3.2s ease-in-out infinite; transform-origin: 160px 30px; }
+  #liftedBlock{ animation: blockLift 3.2s ease-in-out infinite; transform-origin: 160px 130px; }
+  @keyframes armSwing1{ 0%,100%{ transform: rotate(0deg);} 50%{ transform: rotate(-14deg);} }
+  @keyframes armSwing2{ 0%,100%{ transform: rotate(0deg);} 50%{ transform: rotate(20deg);} }
+  @keyframes gripPulse{ 0%,100%{ transform: scaleX(1);} 50%{ transform: scaleX(0.55);} }
+  @keyframes blockLift{ 0%,30%{ opacity:0; transform: translateY(0);} 50%,80%{ opacity:1; transform: translateY(0);} 100%{ opacity:0; transform: translateY(0);} }
+
+  #nodeA, #nodeB, #nodeC{ animation: nodeLight 2.4s ease-in-out infinite; }
+  #nodeB{ animation-delay: 0.3s; } #nodeC{ animation-delay: 0.6s; }
+  @keyframes nodeLight{ 0%,100%{ stroke: var(--mint); } 50%{ stroke: var(--gold); } }
+
+  #queueRows circle{ animation: blip 2s ease-in-out infinite; }
+  @keyframes blip{ 0%,100%{ opacity:1; } 50%{ opacity:0.35; } }
+
+  #pulseDots circle:nth-child(1){ animation: travel1 1.8s ease-in infinite; }
+  #pulseDots circle:nth-child(2){ animation: travel2 1.8s ease-in infinite; animation-delay: 0.25s; }
+  #pulseDots circle:nth-child(3){ animation: travel3 1.8s ease-in infinite; animation-delay: 0.5s; }
+  #pulseDots circle:nth-child(4){ animation: travel4 1.8s ease-in infinite; animation-delay: 0.75s; }
+  #pulseDots circle:nth-child(5){ animation: travel5 1.8s ease-in infinite; animation-delay: 1s; }
+  @keyframes travel1{ 0%{ transform: translate(0,0); opacity:1;} 95%{ transform: translate(-120px,80px); opacity:1;} 100%{ opacity:0; } }
+  @keyframes travel2{ 0%{ transform: translate(0,0); opacity:1;} 95%{ transform: translate(-60px,80px); opacity:1;} 100%{ opacity:0; } }
+  @keyframes travel3{ 0%{ transform: translate(0,0); opacity:1;} 95%{ transform: translate(0,80px); opacity:1;} 100%{ opacity:0; } }
+  @keyframes travel4{ 0%{ transform: translate(0,0); opacity:1;} 95%{ transform: translate(60px,80px); opacity:1;} 100%{ opacity:0; } }
+  @keyframes travel5{ 0%{ transform: translate(0,0); opacity:1;} 95%{ transform: translate(120px,80px); opacity:1;} 100%{ opacity:0; } }
+
+  @media (prefers-reduced-motion: reduce){
+    #armSeg1, #armSeg2, #gripper, #liftedBlock, #nodeA, #nodeB, #nodeC, #queueRows circle, #pulseDots circle{ animation: none !important; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation: none !important; transition: none !important; }
+    .bg-field{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-field" id="bgField" aria-hidden="true"></div>
+<div class="grid-glow" aria-hidden="true"></div>
+
+<nav>
+  <div class="wrap">
+    <div class="nav-mark">neeraja<span>.</span>nair</div>
+    <div class="nav-links">
+      <a href="#journey">Journey</a>
+      <a href="#projects">Work</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <a class="icon-btn" href="https://github.com/neerajanirmal" target="_blank" rel="noopener" aria-label="GitHub profile">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.08 3.29 9.39 7.86 10.9.57.1.78-.25.78-.55 0-.27-.01-1.17-.02-2.12-3.2.7-3.88-1.36-3.88-1.36-.52-1.33-1.28-1.68-1.28-1.68-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.74.39-1.26.71-1.55-2.56-.29-5.25-1.28-5.25-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.21-1.49 3.18-1.18 3.18-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.27 5.69.41.36.78 1.07.78 2.16 0 1.56-.01 2.82-.01 3.2 0 .31.2.66.79.55A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="status-chip"><span class="dot"></span>Currently at FACTS · Dubai</div>
+  <div class="wrap">
+    <div class="eyebrow">FULL-STACK DEVELOPER · DUBAI, UAE</div>
+    <h1 class="headline">I build it once. <em>Then it runs for fifty clients.</em></h1>
+    <p class="hero-sub">I'm Neeraja — a developer at FACTS Computer Software House, where I customize <strong>WebERP for 50+ businesses</strong> off one configurable engine, build PWAs that render their own UI from JSON, and write the T-SQL underneath that actually holds the business logic.</p>
+
+    <div class="cta-row">
+      <a class="btn btn-solid" href="mailto:neerajanr31@gmail.com">Email me</a>
+      <a class="btn btn-ghost" href="https://github.com/neerajanirmal" target="_blank" rel="noopener">View GitHub ↗</a>
+      <a class="btn btn-ghost" href="https://www.linkedin.com/in/neeraja-nair-p/" target="_blank" rel="noopener">LinkedIn ↗</a>
+      <a class="btn btn-ghost" href="#projects">See the work ↓</a>
+    </div>
+
+    <div class="stats-row fade-up" id="statsRow">
+      <div class="stat"><div class="num" data-count="50" data-suffix="+">0</div><div class="label">CLIENT DEPLOYMENTS</div></div>
+      <div class="stat"><div class="num" data-count="3" data-suffix="+">0</div><div class="label">YEARS BUILDING</div></div>
+      <div class="stat"><div class="num" data-count="4" data-suffix="">0</div><div class="label">PRODUCTS SHIPPED</div></div>
+    </div>
+
+    <div class="demo fade-up" id="demoBlock">
+      <div class="pane">
+        <div class="pane-head"><span>profile.schema.json</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="code" id="codePane"></div>
+      </div>
+      <div class="pane">
+        <div class="pane-head"><span>live preview</span><span class="render-status" id="renderStatus">waiting for schema<span class="blip"> ●</span></span></div>
+        <div class="preview">
+          <div class="card" id="renderCard">
+            <div class="card-row"><span class="field">name</span><span class="val">Neeraja Nair</span></div>
+            <div class="card-row"><span class="field">role</span><span class="val">Full-Stack Developer</span></div>
+            <div class="card-row"><span class="field">location</span><span class="val">Dubai, UAE</span></div>
+            <div class="card-row"><span class="field">phone</span><span class="val">+971 50 326 3527</span></div>
+            <div class="card-row"><span class="field">email</span><span class="val">neerajanr31@gmail.com</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="scroll-cue"><span class="arrow">↓</span> Scroll to explore</div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="wrap summary fade-up">
+    <div class="sec-label">// SUMMARY</div>
+    <h2>What I actually do</h2>
+    <p>I build <strong>enterprise web applications</strong> where the UI isn't hard-coded — it's rendered from rules. Most of my work lives in <strong>React.js and Progressive Web Apps</strong>, reading custom JSON schemas to generate forms, chat modules, and document views on the fly. Underneath, I write the <strong>T-SQL</strong> that the front end actually depends on: stored procedures, views, and triggers carrying real business logic. I care about clean alignment, responsive layouts, and code the next developer can actually reuse.</p>
+  </div>
+</section>
+
+<section id="journey">
+  <div class="wrap fade-up">
+    <div class="sec-label">// THE JOURNEY</div>
+    <h2>From a transaction queue in Kerala  to <em>production schemas in Dubai.</em></h2>
+
+    <div class="journey" id="journeyTrack">
+      <div class="journey-track"></div>
+      <div class="journey-progress" id="journeyProgress"></div>
+
+      <div class="jstep">
+        <div>
+          <span class="jdate">2013 — 2016</span>
+          <h3>The foundation. <em>BSc Electronics.</em></h3>
+          <p>University of Calicut, Kerala. Circuits, systems, signals — and a robotics team that took <strong style="color:var(--text)">1st prize at the National Robotic Championship, IIT Madras (2015)</strong>. Building a physical arm that actually moved on command was the first time "engineering" felt real.</p>
+          <span class="jtag">University of Calicut · BSc Electronics</span>
+        </div>
+        <div class="jvisual">
+          <div class="jvisual-head"><span>robotic_arm.sketch</span><span>2015</span></div>
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="320" height="200" fill="var(--surface)"/>
+            <line x1="20" y1="0" x2="20" y2="200" stroke="var(--line)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="80" y1="0" x2="80" y2="200" stroke="var(--line)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="140" y1="0" x2="140" y2="200" stroke="var(--line)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="200" y1="0" x2="200" y2="200" stroke="var(--line)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="260" y1="0" x2="260" y2="200" stroke="var(--line)" stroke-width="0.5" opacity="0.4"/>
+            <line x1="0" y1="172" x2="320" y2="172" stroke="var(--line)" stroke-width="1"/>
+            <rect x="110" y="172" width="100" height="12" rx="2" fill="var(--surface-2)" stroke="var(--line)"/>
+            <rect x="130" y="156" width="60" height="18" rx="3" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="1.5"/>
+            <g id="armBase">
+              <rect x="150" y="124" width="20" height="34" rx="3" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="1.5"/>
+              <g id="armSeg1" style="transform-origin:160px 130px;">
+                <rect x="154" y="72" width="12" height="60" rx="6" fill="var(--gold)" opacity="0.9"/>
+                <circle cx="160" cy="130" r="8" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="2"/>
+                <g id="armSeg2" style="transform-origin:160px 72px;">
+                  <rect x="154" y="30" width="12" height="44" rx="6" fill="var(--mint)" opacity="0.9"/>
+                  <circle cx="160" cy="72" r="7" fill="var(--surface-2)" stroke="var(--mint)" stroke-width="2"/>
+                  <g id="gripper">
+                    <path d="M160 30 L146 16 L150 12" fill="none" stroke="var(--mint)" stroke-width="3" stroke-linecap="round"/>
+                    <path d="M160 30 L174 16 L170 12" fill="none" stroke="var(--mint)" stroke-width="3" stroke-linecap="round"/>
+                  </g>
+                </g>
+              </g>
+            </g>
+            <rect id="liftedBlock" x="150" y="2" width="20" height="16" rx="3" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="1.5"/>
+            <text x="18" y="22" font-family="IBM Plex Mono" font-size="9" fill="var(--muted)">grip sequence: armed</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="jstep">
+        <div>
+          <span class="jdate">2016 — 2019</span>
+          <h3>The shift. <em>MCA, Calicut University.</em></h3>
+          <p>A Master of Computer Applications at APJ Abdul Kalam Technological University turned curiosity into a craft — data structures, programming fundamentals, and the early groundwork for everything I now build on top of.</p>
+          <span class="jtag">APJ Abdul Kalam Technological University · MCA</span>
+        </div>
+        <div class="jvisual">
+          <div class="jvisual-head"><span>coursework.tree</span><span>2019</span></div>
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="320" height="200" fill="var(--surface)"/>
+            <line x1="160" y1="170" x2="160" y2="140" stroke="var(--line)" stroke-width="2"/>
+            <line x1="160" y1="140" x2="80" y2="110" stroke="var(--line)" stroke-width="2"/>
+            <line x1="160" y1="140" x2="160" y2="100" stroke="var(--line)" stroke-width="2"/>
+            <line x1="160" y1="140" x2="240" y2="110" stroke="var(--line)" stroke-width="2"/>
+            <circle id="nodeRoot" cx="160" cy="170" r="9" fill="var(--surface-2)" stroke="var(--gold)" stroke-width="2"/>
+            <circle id="nodeA" cx="80" cy="110" r="7" fill="var(--surface-2)" stroke="var(--mint)" stroke-width="2"/>
+            <circle id="nodeB" cx="160" cy="100" r="7" fill="var(--surface-2)" stroke="var(--mint)" stroke-width="2"/>
+            <circle id="nodeC" cx="240" cy="110" r="7" fill="var(--surface-2)" stroke="var(--mint)" stroke-width="2"/>
+            <text x="48" y="92" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">data structures</text>
+            <text x="118" y="84" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">web dev</text>
+            <text x="206" y="92" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">databases</text>
+            <text x="138" y="195" font-family="IBM Plex Mono" font-size="8" fill="var(--gold)">MCA</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="jstep">
+        <div>
+          <span class="jdate">Aug 2019 — May 2021</span>
+          <h3>The detour. <em>Transaction Processing, Sutherland.</em></h3>
+          <p>Not a developer role — but two years that taught what no classroom does: monitoring transactions for <strong style="color:var(--text)">strict quality compliance</strong>, resolving issues at the source instead of around them, and reading metrics closely enough to actually improve a process. Habits that show up in how carefully I ship code today.</p>
+          <span class="jtag">Sutherland Global Services · Kerala, India</span>
+        </div>
+        <div class="jvisual">
+          <div class="jvisual-head"><span>queue.monitor</span><span>live</span></div>
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="320" height="200" fill="var(--surface)"/>
+            <g id="queueRows">
+              <rect x="20" y="30" width="280" height="22" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <rect x="20" y="62" width="280" height="22" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <rect x="20" y="94" width="280" height="22" rx="3" fill="var(--surface-2)" stroke="var(--mint)" stroke-width="1.5"/>
+              <rect x="20" y="126" width="280" height="22" rx="3" fill="var(--surface-2)" stroke="var(--line)"/>
+              <circle cx="34" cy="41" r="3" fill="var(--mint)"/>
+              <circle cx="34" cy="73" r="3" fill="var(--mint)"/>
+              <circle cx="34" cy="105" r="3" fill="var(--gold)"/>
+              <circle cx="34" cy="137" r="3" fill="var(--muted)"/>
+              <text x="46" y="45" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">TX-2289 · verified</text>
+              <text x="46" y="77" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">TX-2290 · verified</text>
+              <text x="46" y="109" font-family="IBM Plex Mono" font-size="8" fill="var(--gold)">TX-2291 · reviewing…</text>
+              <text x="46" y="141" font-family="IBM Plex Mono" font-size="8" fill="var(--muted)">TX-2292 · queued</text>
+            </g>
+            <text x="20" y="175" font-family="IBM Plex Mono" font-size="8" fill="var(--mint)">✓ corrected at source</text>
+          </svg>
+        </div>
+      </div>
+
+      <div class="jstep">
+        <div>
+          <span class="jdate">Jul 2022 — Present</span>
+          <h3>The build. <em>R&D Engineer, FACTS.</em></h3>
+          <p>Customizing <strong style="color:var(--text)">WebERP for 50+ client environments</strong> off one configurable JSON-schema engine. Building the PWA chat module, the dashboards, the T-SQL underneath all of it. Three years in, still the same instinct from the robotics lab: build something, then watch it actually run.</p>
+          <span class="jtag">FACTS Computer Software House · Dubai, UAE</span>
+        </div>
+        <div class="jvisual">
+          <div class="jvisual-head"><span>deploy.fleet</span><span>50+ live</span></div>
+          <svg viewBox="0 0 320 200" xmlns="http://www.w3.org/2000/svg">
+            <rect x="0" y="0" width="320" height="200" fill="var(--surface)"/>
+
+            <g id="fleetNodes" stroke="var(--gold)" stroke-width="1.2" opacity="0.55">
+              <line x1="160" y1="58" x2="40" y2="138"/>
+              <line x1="160" y1="58" x2="100" y2="138"/>
+              <line x1="160" y1="58" x2="160" y2="138"/>
+              <line x1="160" y1="58" x2="220" y2="138"/>
+              <line x1="160" y1="58" x2="280" y2="138"/>
+            </g>
+
+            <g id="pulseDots" fill="var(--gold)">
+              <circle cx="160" cy="58" r="2.4"/>
+              <circle cx="160" cy="58" r="2.4"/>
+              <circle cx="160" cy="58" r="2.4"/>
+              <circle cx="160" cy="58" r="2.4"/>
+              <circle cx="160" cy="58" r="2.4"/>
+            </g>
+
+            <rect x="128" y="20" width="64" height="38" rx="6" fill="var(--gold)"/>
+            <text x="160" y="35" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#1A1408">SCHEMA</text>
+            <text x="160" y="48" text-anchor="middle" font-family="IBM Plex Mono" font-size="8" font-weight="600" fill="#1A1408">ENGINE</text>
+
+            <g font-family="IBM Plex Mono" font-size="6.5" font-weight="600">
+              <rect x="24" y="138" width="32" height="24" rx="4" fill="var(--mint)"/>
+              <text x="40" y="153" text-anchor="middle" fill="#04342C">RETAIL</text>
+
+              <rect x="84" y="138" width="32" height="24" rx="4" fill="var(--mint)"/>
+              <text x="100" y="153" text-anchor="middle" fill="#04342C">TRADING</text>
+
+              <rect x="144" y="138" width="32" height="24" rx="4" fill="var(--mint)"/>
+              <text x="160" y="153" text-anchor="middle" fill="#04342C">LOGISTICS</text>
+
+              <rect x="204" y="138" width="32" height="24" rx="4" fill="var(--mint)"/>
+              <text x="220" y="153" text-anchor="middle" fill="#04342C">SERVICES</text>
+
+              <rect x="264" y="138" width="32" height="24" rx="4" fill="var(--mint)"/>
+              <text x="280" y="153" text-anchor="middle" fill="#04342C">PHARMA</text>
+            </g>
+
+            <text x="160" y="183" text-anchor="middle" font-family="IBM Plex Mono" font-size="9" fill="var(--text)" font-weight="500">+45 more industries</text>
+          </svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="wrap fade-up">
+    <div class="sec-label">// SELECTED WORK</div>
+    <h2>Things I've shipped  that <em>people actually use.</em></h2>
+
+    <div class="proj-grid">
+
+      <div class="proj-card">
+        <div class="proj-head"><span>weberp.customize.js</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="proj-body">
+          <span class="proj-status">Live · Enterprise ERP · 50+ clients</span>
+          <div class="proj-title">WebERP Multi-Client Customization</div>
+          <p class="proj-desc">Tailored and deployed WebERP across <strong style="color:var(--text)">50+ client environments</strong>, configuring modules, forms, and workflows to match each business's process — without forking the core codebase. One schema-driven layer, fifty different businesses running on it.</p>
+          <div class="proj-tags"><span>React.js</span><span>T-SQL</span><span>FactsERP</span><span>JSON Schema</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><span>chat.module.tsx</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="proj-body">
+          <span class="proj-status">Live · Enterprise PWA</span>
+          <div class="proj-title">Real-Time Chat Module</div>
+          <p class="proj-desc">Designed a real-time chat experience inside the PWA — live typing indicators, threaded messages, and API-driven conversation logic running on dynamic datasets. Built to feel instant inside an otherwise data-heavy enterprise tool.</p>
+          <div class="proj-tags"><span>React.js</span><span>REST APIs</span><span>PWA</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><span>dashboards.viz.js</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="proj-body">
+          <span class="proj-status">Live · Data Visualization</span>
+          <div class="proj-title">Interactive Data Dashboards</div>
+          <p class="proj-desc">Built rich, interactive dashboards with DevExpress dxChart and dxPivotGrid, turning dense enterprise datasets into pivots and visualizations business users could actually read and act on — fully responsive across devices.</p>
+          <div class="proj-tags"><span>DevExpress</span><span>dxPivotGrid</span><span>SQL Server</span></div>
+        </div>
+      </div>
+
+      <div class="proj-card">
+        <div class="proj-head"><span>schema.engine.json</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="proj-body">
+          <span class="proj-status">Core Engine · Internal</span>
+          <div class="proj-title">JSON Schema UI Renderer</div>
+          <p class="proj-desc">Built the rendering engine behind the live demo at the top of this page — a rule-driven system that reads a JSON schema and generates forms, document views, and layouts on the fly. The same engine powering customization across every client deployment.</p>
+          <div class="proj-tags"><span>React.js</span><span>JSON Schema</span><span>PWA</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="wrap fade-up">
+    <div class="sec-label">// TECHNICAL DEPTH</div>
+    <h2>Tools I build with.</h2>
+
+    <div class="skills-grid">
+      <div class="skill-card">
+        <span class="skill-glyph">⬡</span>
+        <div class="skill-cat">Frontend</div>
+        <ul><li>React.js</li><li>HTML / CSS</li><li>JavaScript</li><li>DevExpress</li></ul>
+      </div>
+      <div class="skill-card">
+        <span class="skill-glyph">◎</span>
+        <div class="skill-cat">Backend</div>
+        <ul><li>T-SQL</li><li>SQL Server</li><li>MySQL</li><li>Stored Procedures</li></ul>
+      </div>
+      <div class="skill-card">
+        <span class="skill-glyph">△</span>
+        <div class="skill-cat">Languages</div>
+        <ul><li>JavaScript</li><li>Java</li><li>C++</li><li>C</li></ul>
+      </div>
+      <div class="skill-card">
+        <span class="skill-glyph">◈</span>
+        <div class="skill-cat">ERP Domain</div>
+        <ul><li>FactsERP</li><li>Multi-tenant config</li><li>Business workflows</li><li>PWA architecture</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="next">
+  <div class="wrap fade-up">
+    <div class="sec-label">// WHERE I'M HEADED</div>
+    <h2>One engine, fifty clients. <em>I want to push that further.</em></h2>
+
+    <div class="next-grid">
+      <div class="next-card">
+        <span class="nk">DEEPENING</span>
+        <p>Schema-driven architecture — making one configurable engine scale across even more client workflows without new code per client.</p>
+      </div>
+      <div class="next-card">
+        <span class="nk">SHARPENING</span>
+        <p>Data visualization craft — denser dashboards, faster pivots, interfaces that make enterprise data genuinely readable.</p>
+      </div>
+      <div class="next-card">
+        <span class="nk">LOOKING FOR</span>
+        <p>A team that ships real products and takes clean architecture as seriously as I do.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="wrap fade-up">
+    <div class="sec-label" style="text-align:center;">// SAY HELLO</div>
+    <h2 style="text-align:center; margin: 0 auto 32px;">Got a project? <em>Let's talk.</em></h2>
+
+    <div class="terminal">
+      <div class="term-head"><span>neeraja@dubai ~</span><div class="dots"><span></span><span></span><span></span></div></div>
+      <div class="term-body">
+        <span class="prompt">➜</span> <span class="cmd">./whoami</span>
+        <span class="out">Full-Stack Developer · Dubai, UAE</span>
+        <span class="prompt">➜</span> <span class="cmd">cat contact.txt</span>
+        <span class="out">
+          <a href="mailto:neerajanr31@gmail.com">neerajanr31@gmail.com</a><br>
+          <a href="tel:+971503263527">+971 50 326 3527</a><br>
+          <a href="https://github.com/neerajanirmal" target="_blank" rel="noopener">github.com/neerajanirmal</a><br>
+          <a href="https://www.linkedin.com/in/neeraja-nair-p/" target="_blank" rel="noopener">linkedin.com/in/neeraja-nair-p</a>
+        </span>
+        <span class="prompt">➜</span> <span class="cmd">./availability.sh</span>
+        <span class="out">
+          <span class="ok">✓</span> Open to new opportunities<br>
+          <span class="ok">✓</span> ERP · PWA · Data Visualization<br>
+          <span class="ok">✓</span> Response time: under 24h
+        </span>
+        <span class="prompt">➜</span> <span class="cursor"></span>
+      </div>
+    </div>
+
+    <div class="foot-cta">
+      <a class="btn btn-solid" href="mailto:neerajanr31@gmail.com">Start a conversation →</a>
+    </div>
+
+    <div class="foot-note">© 2026 Neeraja Nair · Full-Stack Developer · Dubai, UAE</div>
+  </div>
+</footer>
+
+<script>
+  const schemaLines = [
+    ['{'],
+    ['  ', ['k','"name"'], ': ', ['s','"Neeraja Nair"'], ','],
+    ['  ', ['k','"role"'], ': ', ['s','"Full-Stack Developer"'], ','],
+    ['  ', ['k','"location"'], ': ', ['s','"Dubai, UAE"'], ','],
+    ['  ', ['k','"phone"'], ': ', ['s','"+971 50 326 3527"'], ','],
+    ['  ', ['k','"email"'], ': ', ['s','"neerajanr31@gmail.com"']],
+    ['}']
+  ];
+
+  const codePane = document.getElementById('codePane');
+  const renderCard = document.getElementById('renderCard');
+  const renderStatus = document.getElementById('renderStatus');
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function buildLineHTML(parts){
+    return parts.map(p => Array.isArray(p) ? `<span class="${p[0]}">${p[1]}</span>` : p).join('');
+  }
+
+  async function typeSchema(){
+    if(prefersReduced){
+      codePane.innerHTML = schemaLines.map(buildLineHTML).join('<br>');
+      renderStatus.innerHTML = 'rendered <span class="blip">●</span>';
+      renderCard.classList.add('show');
+      return;
+    }
+    let html = '';
+    for(const line of schemaLines){
+      const full = buildLineHTML(line);
+      const plain = full.replace(/<[^>]+>/g,'');
+      for(let i=1;i<=plain.length;i++){
+        codePane.innerHTML = html + plain.slice(0,i) + '<span class="cursor"></span>';
+        await new Promise(r=>setTimeout(r, 8));
+      }
+      html += full + '<br>';
+      codePane.innerHTML = html + '<span class="cursor"></span>';
+      await new Promise(r=>setTimeout(r, 90));
+    }
+    codePane.innerHTML = html;
+    renderStatus.innerHTML = 'rendering<span class="blip">…</span>';
+    await new Promise(r=>setTimeout(r, 500));
+    renderStatus.innerHTML = 'rendered <span class="blip">●</span>';
+    renderCard.classList.add('show');
+  }
+
+  const demoBlock = document.getElementById('demoBlock');
+  const demoObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        demoBlock.classList.add('in');
+        typeSchema();
+        demoObserver.disconnect();
+      }
+    });
+  }, {threshold: 0.2});
+  demoObserver.observe(demoBlock);
+
+  const fadeEls = document.querySelectorAll('.fade-up');
+  const fadeObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        fadeObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12});
+  fadeEls.forEach(el => fadeObserver.observe(el));
+
+  // Journey step glow on enter
+  const jsteps = document.querySelectorAll('.jstep');
+  const jstepObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){ entry.target.classList.add('in'); }
+    });
+  }, {threshold: 0.4});
+  jsteps.forEach(el => jstepObserver.observe(el));
+
+  // Scroll-driven timeline progress line
+  const journeyTrack = document.getElementById('journeyTrack');
+  const journeyProgress = document.getElementById('journeyProgress');
+  function updateJourneyProgress(){
+    if(!journeyTrack || prefersReduced) return;
+    const rect = journeyTrack.getBoundingClientRect();
+    const vh = window.innerHeight;
+    const total = rect.height;
+    const visibleStart = vh * 0.85;
+    let progressed = visibleStart - rect.top;
+    progressed = Math.max(0, Math.min(progressed, total));
+    const pct = total > 0 ? (progressed / total) * 100 : 0;
+    journeyProgress.style.height = pct + '%';
+  }
+  window.addEventListener('scroll', updateJourneyProgress, {passive:true});
+  window.addEventListener('resize', updateJourneyProgress);
+  updateJourneyProgress();
+
+  const bgField = document.getElementById('bgField');
+  if(!prefersReduced){
+    const symbols = ['{ }','[ ]','</>','"key"',':',',','{','}','[',']'];
+    const count = window.innerWidth < 700 ? 10 : 18;
+    for(let i=0;i<count;i++){
+      const el = document.createElement('span');
+      el.textContent = symbols[Math.floor(Math.random()*symbols.length)];
+      el.style.left = Math.random()*100 + '%';
+      el.style.bottom = '-40px';
+      el.style.fontSize = (0.8 + Math.random()*1.2) + 'rem';
+      const duration = 18 + Math.random()*22;
+      el.style.animationDuration = duration + 's';
+      el.style.animationDelay = (Math.random()*duration) + 's';
+      bgField.appendChild(el);
+    }
+  }
+
+  function animateCount(el){
+    const target = parseFloat(el.dataset.count);
+    const suffix = el.dataset.suffix || '';
+    if(prefersReduced){ el.textContent = target + suffix; return; }
+    let cur = 0;
+    const step = Math.max(target / 40, 0.5);
+    const tick = () => {
+      cur += step;
+      if(cur >= target){ el.textContent = target + suffix; return; }
+      el.textContent = Math.floor(cur) + suffix;
+      requestAnimationFrame(tick);
+    };
+    tick();
+  }
+  const statsRow = document.getElementById('statsRow');
+  const statObserver = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        statsRow.querySelectorAll('.num').forEach(animateCount);
+        statObserver.disconnect();
+      }
+    });
+  }, {threshold: 0.4});
+  statObserver.observe(statsRow);
+
+  document.querySelectorAll('.proj-card').forEach(card=>{
+    card.addEventListener('mousemove', (e)=>{
+      if(prefersReduced) return;
+      const r = card.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+      card.style.setProperty('--mx', x + 'px');
+      card.style.setProperty('--my', y + 'px');
+      const rx = ((y / r.height) - 0.5) * -6;
+      const ry = ((x / r.width) - 0.5) * 6;
+      card.style.transform = `perspective(700px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(-2px)`;
+    });
+    card.addEventListener('mouseleave', ()=>{
+      card.style.transform = 'perspective(700px) rotateX(0) rotateY(0) translateY(0)';
+    });
+  });
+</script>
+
+</body>
+</html>
