@@ -265,7 +265,7 @@
   .skill-card li{ color: var(--muted); font-size: 0.85rem; font-family: var(--mono); }
 
   /* ---------- NEXT ---------- */
-  .next-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .next-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
   @media (max-width: 760px){ .next-grid{ grid-template-columns: 1fr; } }
   .next-card{ border-left: 2px solid var(--gold); padding-left: 18px; }
   .next-card .nk{ font-family: var(--mono); font-size: 0.7rem; color: var(--gold); letter-spacing: 0.04em; margin-bottom: 8px; display:block; }
@@ -396,6 +396,7 @@
     <div class="sec-label">// SUMMARY</div>
     <h2>What I actually do</h2>
     <p>I build <strong>enterprise web applications</strong> where the UI isn't hard-coded — it's rendered from rules. Most of my work lives in <strong>React.js and Progressive Web Apps</strong>, reading custom JSON schemas to generate forms, chat modules, and document views on the fly. Underneath, I write the <strong>T-SQL</strong> that the front end actually depends on: stored procedures, views, and triggers carrying real business logic. I care about clean alignment, responsive layouts, and code the next developer can actually reuse.</p>
+    <p>Lately I'm pointing that same schema-first thinking at <strong>AI agents</strong> — systems where a language model reads the rules, picks the tools, and does the work. I've completed <strong>AI Agents Fundamentals</strong> with Hugging Face and I'm looking at how agents can sit inside enterprise software like the engine above.</p>
   </div>
 </section>
 
@@ -610,6 +611,16 @@
         </div>
       </div>
 
+      <div class="proj-card">
+        <div class="proj-head"><span>agents.fundamentals.md</span><div class="dots"><span></span><span></span><span></span></div></div>
+        <div class="proj-body">
+          <span class="proj-status">Certified · Hugging Face</span>
+          <div class="proj-title">AI Agents Fundamentals</div>
+          <p class="proj-desc">Completed Hugging Face's agents course: how an LLM becomes an agent by looping through thought, action, and observation, calling tools, and keeping state. Now applying that thinking to schema-driven enterprise workflows.</p>
+          <div class="proj-tags"><span>LLM Agents</span><span>Tool Calling</span><span>Hugging Face</span></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -640,6 +651,11 @@
         <div class="skill-cat">ERP Domain</div>
         <ul><li>FactsERP</li><li>Multi-tenant config</li><li>Business workflows</li><li>PWA architecture</li></ul>
       </div>
+      <div class="skill-card">
+        <span class="skill-glyph">✦</span>
+        <div class="skill-cat">AI &amp; Agents</div>
+        <ul><li>LLM agents</li><li>Tool calling</li><li>Prompt design</li><li>Hugging Face</li></ul>
+      </div>
     </div>
   </div>
 </section>
@@ -657,6 +673,10 @@
       <div class="next-card">
         <span class="nk">SHARPENING</span>
         <p>Data visualization craft — denser dashboards, faster pivots, interfaces that make enterprise data genuinely readable.</p>
+      </div>
+      <div class="next-card">
+        <span class="nk">EXPLORING</span>
+        <p>AI agents inside enterprise software — letting a model read a client's schema and draft forms, workflows, and queries that a developer then reviews.</p>
       </div>
       <div class="next-card">
         <span class="nk">LOOKING FOR</span>
@@ -686,7 +706,7 @@
         <span class="prompt">➜</span> <span class="cmd">./availability.sh</span>
         <span class="out">
           <span class="ok">✓</span> Open to new opportunities<br>
-          <span class="ok">✓</span> ERP · PWA · Data Visualization<br>
+          <span class="ok">✓</span> ERP · PWA · Data Visualization · AI Agents<br>
           <span class="ok">✓</span> Response time: under 24h
         </span>
         <span class="prompt">➜</span> <span class="cursor"></span>
