@@ -255,6 +255,28 @@
   .proj-tags{ display:flex; flex-wrap:wrap; gap: 7px; }
   .proj-tags span{ font-family: var(--mono); font-size: 0.68rem; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: 4px 8px; }
 
+
+  /* ---------- AGENT DEMO ---------- */
+  .agent-wrap{ border:1px solid var(--line); border-radius: var(--radius); overflow:hidden; background: var(--surface); }
+  .agent-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; padding: 12px 18px; border-bottom:1px solid var(--line); font-family: var(--mono); font-size:0.72rem; color: var(--muted); }
+  .agent-note{ color: var(--gold); }
+  .agent-prompts{ display:flex; flex-wrap:wrap; gap:10px; padding: 16px 18px 6px; }
+  .chip{ font-family: var(--mono); font-size:0.76rem; color: var(--text); background: var(--surface-2); border:1px solid var(--line); border-radius:20px; padding:8px 14px; cursor:pointer; transition: all 0.2s ease; }
+  .chip:hover, .chip.active{ border-color: var(--gold); color: var(--gold); }
+  .chip:focus-visible{ outline:2px solid var(--gold); outline-offset:2px; }
+  .agent-log{ padding: 14px 18px 22px; min-height: 250px; font-family: var(--mono); font-size:0.8rem; display:flex; flex-direction:column; gap:10px; }
+  .agent-empty{ color: var(--muted); padding-top: 8px; }
+  .step{ border-left:2px solid var(--line); padding: 2px 0 2px 14px; opacity:0; transform: translateY(6px); animation: stepIn 0.45s ease forwards; }
+  @keyframes stepIn{ to{ opacity:1; transform: translateY(0);} }
+  .step .tag{ font-size:0.68rem; letter-spacing:0.05em; display:block; margin-bottom:3px; }
+  .step.thought{ border-color: var(--muted); } .step.thought .tag{ color: var(--muted); }
+  .step.action{ border-color: var(--gold); } .step.action .tag{ color: var(--gold); }
+  .step.obs{ border-color: var(--mint); } .step.obs .tag{ color: var(--mint); }
+  .step.final{ border-color: var(--mint); background: var(--mint-dim); border-radius: 0 6px 6px 0; padding:10px 14px; }
+  .step .body{ color:#B8C0E0; white-space: pre-wrap; word-break: break-word; }
+  .step .hl{ color: var(--gold); }
+  .agent-foot{ padding: 10px 18px; border-top:1px solid var(--line); font-family: var(--mono); font-size:0.68rem; color: var(--muted); }
+
   /* ---------- SKILLS ---------- */
   .skills-grid{ display:grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 18px; }
   .skill-card{ background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 20px; transition: border-color 0.25s ease, transform 0.25s ease; }
@@ -337,6 +359,7 @@
     <div class="nav-links">
       <a href="#journey">Journey</a>
       <a href="#projects">Work</a>
+      <a href="#agent">Agent</a>
       <a href="#skills">Skills</a>
       <a href="#contact">Contact</a>
     </div>
@@ -625,6 +648,26 @@
   </div>
 </section>
 
+<section id="agent">
+  <div class="wrap fade-up">
+    <div class="sec-label">// AGENT DEMO</div>
+    <h2>Watch an agent <em>work through a schema change.</em></h2>
+
+    <div class="agent-wrap">
+      <div class="agent-head"><span>schema-agent · thought → action → observation</span><span class="agent-note">scripted walkthrough · no live model</span></div>
+      <div class="agent-prompts" role="group" aria-label="Choose a request">
+        <button class="chip" data-i="0" type="button">Add a VAT number field to the customer form</button>
+        <button class="chip" data-i="1" type="button">Hide the discount column for sales staff</button>
+        <button class="chip" data-i="2" type="button">Make delivery date required</button>
+      </div>
+      <div class="agent-log" id="agentLog" aria-live="polite">
+        <div class="agent-empty">Pick a request to see how the agent loop plays out. The draft it produces is always for a developer to review.</div>
+      </div>
+      <div class="agent-foot">A fixed replay of the agent pattern I use in my designs: read the schema, call tools, check the result, then draft a change for human review.</div>
+    </div>
+  </div>
+</section>
+
 <section id="skills">
   <div class="wrap fade-up">
     <div class="sec-label">// TECHNICAL DEPTH</div>
@@ -858,6 +901,58 @@
     });
   }, {threshold: 0.4});
   statObserver.observe(statsRow);
+
+
+  // Agent demo (scripted replay)
+  const agentScenarios = [
+    [
+      ['thought','Request touches the customer form. I need the current schema before changing anything.'],
+      ['action','read_schema(form="customer")'],
+      ['obs','12 fields found. Section "Billing" has: legal_name, address, tax_id. No VAT field.'],
+      ['thought','VAT belongs in Billing, after tax_id. It should be a short text field with a format check.'],
+      ['action','validate_patch(add_field="vat_number", section="Billing")'],
+      ['obs','OK. No name clash, section exists, field type "text" is allowed.'],
+      ['final','Draft patch ready for review:\n{ "op": "add", "section": "Billing", "after": "tax_id",\n  "field": { "name": "vat_number", "type": "text", "pattern": "^[A-Z0-9]{8,15}$" } }']
+    ],
+    [
+      ['thought','Column visibility is role-based. I should check how roles are defined first.'],
+      ['action','read_schema(grid="order_lines")'],
+      ['obs','Column "discount_pct" has no visibility rule. Roles available: admin, sales, finance.'],
+      ['thought','Add a rule that hides it when the role is sales, and leave other roles unchanged.'],
+      ['action','validate_patch(column="discount_pct", hide_for=["sales"])'],
+      ['obs','OK. Rule syntax valid. Finance and admin still see the column.'],
+      ['final','Draft patch ready for review:\n{ "op": "update", "column": "discount_pct",\n  "visible": { "unless_role": ["sales"] } }']
+    ],
+    [
+      ['thought','A required flag is simple, but existing records may have empty values. I should check.'],
+      ['action','read_schema(form="delivery_note")'],
+      ['obs','Field "delivery_date" is optional. Query shows 38 open notes with an empty date.'],
+      ['thought','Making it required would block saving those 38 notes. I should flag that in the draft.'],
+      ['action','validate_patch(field="delivery_date", required=true)'],
+      ['obs','Schema valid. Warning: 38 existing records fail the new rule.'],
+      ['final','Draft patch ready for review:\n{ "op": "update", "field": "delivery_date", "required": true }\nNote for the developer: backfill or exempt 38 open notes before deploying.']
+    ]
+  ];
+  const agentLog = document.getElementById('agentLog');
+  const chips = document.querySelectorAll('.chip');
+  const tagNames = { thought:'THOUGHT', action:'ACTION', obs:'OBSERVATION', final:'DRAFT FOR REVIEW' };
+  let agentRun = 0;
+  function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  async function playAgent(i){
+    const run = ++agentRun;
+    chips.forEach(c => c.classList.toggle('active', c.dataset.i == i));
+    agentLog.innerHTML = '';
+    for(const [type, text] of agentScenarios[i]){
+      if(run !== agentRun) return;
+      const el = document.createElement('div');
+      el.className = 'step ' + type;
+      el.innerHTML = '<span class="tag">' + tagNames[type] + '</span><span class="body">' + esc(text) + '</span>';
+      if(prefersReduced) el.style.cssText = 'opacity:1;transform:none;animation:none';
+      agentLog.appendChild(el);
+      if(!prefersReduced) await new Promise(r => setTimeout(r, 750));
+    }
+  }
+  chips.forEach(c => c.addEventListener('click', () => playAgent(+c.dataset.i)));
 
   document.querySelectorAll('.proj-card').forEach(card=>{
     card.addEventListener('mousemove', (e)=>{
