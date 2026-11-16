@@ -1,149 +1,196 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Neeraja · R&D Engineer · ERP, PWAs and AI agents</title>
-<meta name="description" content="Neeraja, R&D Engineer in Dubai. Builds ERP modules, PWAs and warehouse tools for eight industries, and is now adding AI agents.">
-<meta name="theme-color" content="#f3f5ff">
+<title>Neeraja · Full Stack Web Developer</title>
+<meta name="description" content="Neeraja is a full stack developer building business-grade web apps that also work as mobile apps, with React, Python and SQL Server, now adding AI agents.">
+<meta name="theme-color" content="#16132e">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f3f5ff;--ink:#0f1233;--mute:#545a86;--blue:#3d4bff;--pink:#ff5fa2;--yellow:#ffe24d;--green:#2bd9a0;--white:#fff;--r:26px}
+:root{--bg:#16132e;--panel:#201c42;--panel2:#2a2554;--line:#3a3470;--text:#f2eeff;--mute:#b4aedc;--lilac:#b9a8ff;--coral:#ff8a9b;--mint:#8ff0cf;--sun:#ffd66b;--onacc:#1b1640;--navbg:rgba(22,19,46,.85);--r:28px}
+:root[data-theme="light"]{--bg:#f5f2ff;--panel:#ffffff;--panel2:#ebe6ff;--line:#cfc6f5;--text:#1d1844;--mute:#5d5788;--lilac:#6d55ee;--coral:#e0435f;--mint:#12a37a;--sun:#b57b00;--onacc:#ffffff;--navbg:rgba(245,242,255,.88)}
 *{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:90px}
-body{background:var(--bg);color:var(--ink);font:400 17px/1.6 'Figtree',system-ui,sans-serif;overflow-x:hidden;
- padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-h1,h2,h3{font-family:'Unbounded','Figtree',sans-serif;font-weight:700;line-height:1.1;letter-spacing:-.02em}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{background:var(--bg);color:var(--text);font:400 17px/1.6 'DM Sans',system-ui,sans-serif;overflow-x:hidden;
+  padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);transition:background .3s,color .3s}
+h1,h2,h3{font-family:'Bricolage Grotesque','DM Sans',sans-serif;line-height:1.02;letter-spacing:-.025em}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--blue);outline-offset:3px;border-radius:10px}
-nav{position:sticky;top:12px;z-index:20;margin:12px auto 0;width:max-content;max-width:calc(100% - 24px);display:flex;gap:4px;align-items:center;
- background:var(--white);border:2px solid var(--ink);border-radius:99px;padding:6px;box-shadow:4px 4px 0 var(--ink)}
-nav a{text-decoration:none;padding:8px 14px;border-radius:99px;font-weight:600;font-size:14.5px}
-nav a:hover{background:var(--yellow)}
-nav a.cv{background:var(--ink);color:#fff}
-main,footer{max-width:1160px;margin:0 auto;padding:0 clamp(18px,5vw,40px)}
-.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:44px;align-items:center;padding:70px 0 30px}
-.sticker{display:inline-flex;gap:8px;align-items:center;background:var(--yellow);border:2px solid var(--ink);border-radius:99px;padding:6px 16px;font-weight:600;font-size:15px;transform:rotate(-2deg)}
-h1{font-size:clamp(34px,5.6vw,68px);margin:22px 0 18px}
-.lede{color:var(--mute);font-size:19px;max-width:32em}
-.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
-.btn{display:inline-block;text-decoration:none;font-weight:600;padding:14px 26px;border-radius:99px;background:var(--blue);color:#fff;border:2px solid var(--ink);box-shadow:4px 4px 0 var(--ink);transition:transform .15s,box-shadow .15s}
-.btn:hover{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.btn.alt{background:var(--white);color:var(--ink)}
-.agent{background:var(--white);border:2px solid var(--ink);border-radius:var(--r);box-shadow:8px 8px 0 var(--ink);padding:18px}
-.agent header{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:2px dashed #c9cdf5;font-weight:600}
-.agent header i{width:38px;height:38px;border-radius:12px;background:var(--pink);border:2px solid var(--ink);display:grid;place-items:center;font:700 16px 'Unbounded',sans-serif;font-style:normal}
-.agent small{display:block;color:var(--mute);font-weight:400;font-size:13px}
-#log{height:280px;overflow-y:auto;padding:14px 2px;display:flex;flex-direction:column;gap:10px}
+:focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:8px}
+.glow{position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(520px circle at var(--x,70%) var(--y,10%),rgba(185,168,255,.16),transparent 70%)}
+nav{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:14px clamp(18px,5vw,56px);background:var(--navbg);backdrop-filter:blur(14px)}
+nav b{font:800 22px 'Bricolage Grotesque',sans-serif}
+nav .r{display:flex;align-items:center;gap:6px}
+nav ul{display:flex;gap:6px;list-style:none;padding:0}
+nav a{text-decoration:none;padding:8px 14px;border-radius:99px;color:var(--mute);font-weight:500;font-size:15px}
+nav a:hover{background:var(--panel);color:var(--text)}
+#tt{font:inherit;font-size:18px;cursor:pointer;background:var(--panel);color:var(--text);border:1px solid var(--line);width:40px;height:40px;border-radius:50%}
+main,footer{position:relative;z-index:1;max-width:1180px;margin:0 auto;padding:0 clamp(18px,5vw,40px)}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;padding:64px 0 40px}
+.hello{display:inline-flex;gap:10px;align-items:center;background:var(--panel);border:1px solid var(--line);padding:7px 16px 7px 12px;border-radius:99px;font-size:15px;color:var(--mute)}
+.dot{width:9px;height:9px;border-radius:50%;background:var(--mint);animation:pulse 2.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--mint)}70%,100%{box-shadow:0 0 0 10px transparent}}
+h1{font-size:clamp(44px,7vw,90px);font-weight:800;margin:22px 0 20px}
+h1 span{display:inline-block;background:linear-gradient(100deg,var(--lilac),var(--coral) 60%,var(--sun));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lede{max-width:34em;color:var(--mute);font-size:19px}
+.btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{display:inline-block;text-decoration:none;font-weight:500;padding:14px 26px;border-radius:99px;background:var(--lilac);color:var(--onacc);transition:transform .2s}
+.btn:hover{transform:translateY(-3px) rotate(-1deg)}
+.btn.alt{background:transparent;color:var(--text);border:1.5px solid var(--line)}
+.agent{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:0 30px 80px -30px rgba(0,0,0,.5);transform:rotate(1.2deg)}
+.agent header{display:flex;align-items:center;gap:10px;padding:2px 4px 14px;border-bottom:1px solid var(--line);font-weight:500}
+.agent header i{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--lilac),var(--coral));display:grid;place-items:center;font-style:normal;color:#1b1640;font-weight:800}
+.agent small{display:block;color:var(--mute);font-size:13px;font-weight:400}
+#log{height:290px;overflow-y:auto;padding:16px 4px;display:flex;flex-direction:column;gap:10px;scrollbar-width:thin}
 .m{max-width:88%;padding:10px 15px;border-radius:18px;font-size:15.5px;line-height:1.5}
-.m.bot{background:#e8ebff;border-bottom-left-radius:5px}
-.m.me{align-self:flex-end;background:var(--green);border-bottom-right-radius:5px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:2px dashed #c9cdf5}
-.chips button{font:inherit;font-size:14px;font-weight:500;cursor:pointer;background:var(--white);border:2px solid var(--ink);border-radius:99px;padding:6px 14px}
-.chips button:hover{background:var(--yellow)}
-.note{font-size:12.5px;color:var(--mute);text-align:center;margin-top:10px}
-section{padding:76px 0 0}
-h2{font-size:clamp(26px,3.8vw,42px);margin-bottom:12px}
-.sub{color:var(--mute);max-width:38em;margin-bottom:30px}
-/* industries */
-.ind{display:flex;flex-wrap:wrap;gap:14px}
-.ind span{display:inline-flex;align-items:center;gap:10px;background:var(--white);border:2px solid var(--ink);border-radius:20px;padding:12px 20px;font-weight:600;font-size:17px;box-shadow:3px 3px 0 var(--ink);transition:transform .2s}
-.ind span:nth-child(odd){transform:rotate(-1.2deg)}.ind span:nth-child(even){transform:rotate(1.2deg)}
-.ind span:hover{transform:rotate(0) translateY(-4px)}
-.ind b{font-size:24px}
-/* bento */
+.m.bot{background:var(--panel2);border-bottom-left-radius:6px}
+.m.me{align-self:flex-end;background:var(--lilac);color:var(--onacc);border-bottom-right-radius:6px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
+.chips button{font:inherit;font-size:14px;cursor:pointer;background:transparent;color:var(--text);border:1.5px solid var(--line);padding:7px 14px;border-radius:99px;transition:.2s}
+.chips button:hover{background:var(--mint);color:#10352a;border-color:var(--mint)}
+.note{font-size:12.5px;color:var(--mute);margin-top:12px;text-align:center}
+section{padding:72px 0 8px}
+h2{font-size:clamp(34px,5vw,58px);font-weight:800;margin-bottom:12px}
+.sub{color:var(--mute);max-width:36em;margin-bottom:34px}
 .bento{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
-.card{background:var(--white);border:2px solid var(--ink);border-radius:var(--r);padding:28px;box-shadow:5px 5px 0 var(--ink)}
-.card h3{font-size:clamp(20px,2.4vw,28px);margin:6px 0 10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;transition:transform .25s,border-color .25s}
+.card:hover{transform:translateY(-5px);border-color:var(--lilac)}
+.card h3{font-size:clamp(24px,3vw,34px);margin:14px 0 10px}
 .card p{color:var(--mute);font-size:16px}
-.card.blue{background:var(--blue);color:#fff}.card.blue p{color:#dfe2ff}
-.card.pink{background:var(--pink)}.card.pink p{color:#4b1230}
-.card.green{background:var(--green)}.card.green p{color:#0c4a36}
-.card.yellow{background:var(--yellow)}.card.yellow p{color:#4d4300}
-.s4{grid-column:span 4}.s2{grid-column:span 2}.s3{grid-column:span 3}.s6{grid-column:span 6}
-.tag{display:inline-block;font-size:13px;font-weight:600;padding:3px 12px;border:1.5px solid currentColor;border-radius:99px;margin:12px 6px 0 0}
-.mods{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.mods li{background:var(--white);color:var(--ink);font-weight:600;font-size:14.5px;padding:6px 14px;border-radius:99px;border:2px solid var(--ink)}
-.bars{display:flex;align-items:flex-end;gap:10px;height:80px;margin-top:20px;border-bottom:2px solid #fff}
-.bars i{flex:1;height:var(--h);background:var(--yellow);border:2px solid var(--ink);border-bottom:0;border-radius:8px 8px 0 0}
+.tag{display:inline-block;font-size:13px;padding:4px 12px;border-radius:99px;background:rgba(127,127,160,.18);margin:14px 6px 0 0}
+.c1{grid-column:span 4;background:linear-gradient(140deg,#3b2f86,#201c42 70%);color:#f2eeff}
+.c1 p{color:#cfc9f2}
+:root[data-theme="light"] .c1{background:linear-gradient(140deg,#ddd5ff,#fff 75%);color:var(--text)}
+:root[data-theme="light"] .c1 p{color:var(--mute)}
+.c2{grid-column:span 2;background:#ff8a9b;color:#3a0f1a;border-color:transparent}
+.c2 p{color:#5c2230}.c2 .tag{background:rgba(58,15,26,.12)}
+.c3{grid-column:span 2;background:#8ff0cf;color:#10352a;border-color:transparent}
+.c3 p{color:#1e5240}.c3 .tag{background:rgba(16,53,42,.12)}
+.c4{grid-column:span 4}.c5{grid-column:span 6}
+.mods{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+.mods li{background:var(--lilac);color:var(--onacc);font-weight:500;font-size:14.5px;padding:6px 14px;border-radius:99px}
+.c5 .mods li{background:var(--panel2);color:var(--text);border:1.5px solid var(--lilac);font-size:16px;padding:8px 18px}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:8px;margin-top:18px}
+.kpi{background:rgba(127,127,160,.18);border-radius:14px;padding:10px 12px;font-size:12.5px}
+.kpi b{display:block;font:800 21px 'Bricolage Grotesque',sans-serif}
+.c2 .kpi{background:rgba(58,15,26,.12)}.c3 .kpi{background:rgba(16,53,42,.12)}
+.emp{list-style:none;padding:0;margin-top:12px;display:grid;gap:8px}
+.emp li{display:flex;align-items:center;gap:10px;border-radius:14px;padding:8px 10px;font-size:14px;font-weight:500}
+.emp em{margin-left:auto;font-style:normal;font-size:12px;opacity:.75}
+.emp i{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700}
+.c2 .emp li{background:rgba(58,15,26,.1)}.c2 .emp i{background:#3a0f1a;color:#ffd9de}
+.c3 .emp li{background:rgba(16,53,42,.12)}.c3 .emp i{background:#10352a;color:#c9ffe9}
+.sample{display:block;font-size:11.5px;opacity:.65;margin-top:12px}
+.aimock{margin-top:18px;display:grid;gap:8px;max-width:420px}
+.aimock .q{justify-self:end;background:var(--lilac);color:var(--onacc);padding:8px 14px;border-radius:16px 16px 4px 16px;font-size:14px}
+.aimock .a{background:var(--panel2);padding:12px 14px;border-radius:16px 16px 16px 4px;font-size:14px;color:var(--text)}
+.bars.mini{height:56px;margin:0 0 8px}
+.sample+.tag{margin-top:12px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:90px;margin-top:22px;border-bottom:1px solid var(--line)}
+.bars i{flex:1;height:var(--h);border-radius:8px 8px 0 0;background:linear-gradient(var(--mint),var(--lilac));opacity:.9}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:16px}
-.stat b{display:block;font:700 clamp(36px,5vw,58px)/1 'Unbounded',sans-serif}
-.stat span{font-weight:600}
-/* path */
-.path{display:grid;gap:16px}
-.path .card em{font-style:normal;font-weight:600;color:var(--blue)}
-.edu{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
-.contact{margin:80px 0 36px;text-align:center;padding:60px 22px;background:var(--ink);color:#fff;border-radius:40px}
-.contact p{color:#c8ccf5}
-.contact .btn{margin:6px;box-shadow:4px 4px 0 var(--pink)}
-.contact .btn.alt{color:var(--ink)}
-footer{padding-bottom:40px;text-align:center;color:var(--mute);font-size:14px}
-@media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:44px}.s4,.s2,.s3{grid-column:span 6}.stats{grid-template-columns:1fr}nav a:not(.cv){padding:8px 9px;font-size:13.5px}}
-@media(max-width:520px){nav a:nth-child(n+4):not(.cv){display:none}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:24px}
+.stat b{display:block;font:800 52px/1 'Bricolage Grotesque',sans-serif;color:var(--sun)}
+.ind{display:flex;flex-wrap:wrap;gap:14px}
+.ind span{display:inline-flex;align-items:center;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:12px 20px;font-weight:500;transition:transform .2s,border-color .2s}
+.ind span:nth-child(odd){transform:rotate(-1.2deg)}.ind span:nth-child(even){transform:rotate(1.2deg)}
+.ind span:hover{transform:rotate(0) translateY(-4px);border-color:var(--lilac)}
+.ind b{font-size:22px}
+.marq{margin:72px -40px 0;overflow:hidden;border-block:1px solid var(--line);padding:18px 0;transform:rotate(-1.5deg);background:var(--panel)}
+.marq div{display:flex;gap:44px;width:max-content;animation:slide 30s linear infinite;font:800 28px 'Bricolage Grotesque',sans-serif;white-space:nowrap}
+.marq span:nth-child(3n){color:var(--coral)}.marq span:nth-child(3n+1){color:var(--lilac)}.marq span:nth-child(3n+2){color:var(--mint)}
+@keyframes slide{to{transform:translateX(-50%)}}
+.path{border-left:2px dashed var(--line);margin-left:10px;padding-left:30px;display:grid;gap:26px}
+.path div{position:relative}
+.path div::before{content:"";position:absolute;left:-40px;top:8px;width:18px;height:18px;border-radius:50%;background:var(--bg);border:4px solid var(--lilac)}
+.path h3{font-size:26px}.path p{color:var(--mute)}.path em{font-style:normal;color:var(--sun);font-size:15px}
+.contact{margin:80px 0 40px;text-align:center;padding:64px 24px;border-radius:40px;background:linear-gradient(120deg,#b9a8ff,#ff8a9b);color:#2a1445}
+.contact h2{margin-bottom:10px}
+.contact .btn{background:#2a1445;color:#fff;margin:6px}
+.contact .btn.alt{background:transparent;color:#2a1445;border-color:#2a1445}
+footer{padding-bottom:40px;color:var(--mute);font-size:14px;text-align:center}
+@media(max-width:860px){.hero{grid-template-columns:1fr;padding-top:36px}.agent{transform:none}.c1,.c2,.c3,.c4,.c5{grid-column:span 6}.stats{grid-template-columns:1fr}nav ul{display:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-<nav aria-label="Main"><a href="#work">Work</a><a href="#industries">Industries</a><a href="#path">Path</a><a href="#education">Education</a><a class="cv" href="resume.pdf" download>Resume</a></nav>
+<div class="glow" id="glow"></div>
+<nav><b>neeraja.</b>
+<div class="r"><ul><li><a href="#work">Work</a></li><li><a href="#industries">Industries</a></li><li><a href="#path">Path</a></li><li><a href="#contact">Contact</a></li></ul>
+<button id="tt" type="button" aria-label="Switch between dark and light theme">☀️</button></div></nav>
 
 <main>
 <div class="hero" id="top">
   <div>
-    <span class="sticker">👋 R&amp;D Engineer · Dubai</span>
-    <h1>I build the ERP systems that keep businesses running.</h1>
-    <p class="lede">Hi, I'm Neeraja. Nearly four years at FACTS, 50+ projects, eight industries. Accounting, sales, inventory, POS and more, now with AI agents on top.</p>
-    <div class="btns"><a class="btn" href="#work">See my work</a><a class="btn alt" href="resume.pdf" download>Download resume</a><a class="btn alt" href="#contact">Say hello</a></div>
+    <span class="hello"><i class="dot"></i> 💻 Full Stack Web Developer</span>
+    <h1>I build <span>business-grade web apps</span> that work like mobile apps.</h1>
+    <p class="lede">Hi, I'm Neeraja, a full stack developer. One build runs in the browser and installs on a phone like a mobile app. React on the front, Python and SQL Server behind it, and dashboards that make the data easy to read.</p>
+    <div class="btns"><a class="btn" href="#work">See what I've built</a><a class="btn alt" href="#contact">Say hello</a></div>
   </div>
   <div class="agent" aria-label="Interactive demo: ask Neeraja's assistant">
-    <header><i>N</i><div>Ask Neeraja's assistant<small>Tap a question</small></div></header>
-    <div id="log" aria-live="polite"><div class="m bot">Hi! I'm a small demo agent. Pick a question and I'll answer about Neeraja's work.</div></div>
+    <header><i>N</i><div>Ask Neeraja's assistant<small>Tap a question below</small></div></header>
+    <div id="log" aria-live="polite"><div class="m bot">Hi! I'm a small demo agent. Pick a question and I'll answer about Neeraja.</div></div>
     <div class="chips" id="chips"></div>
-    <p class="note">Demo with scripted answers. A live LLM version is next.</p>
+    <p class="note">Demo agent with scripted answers. A live LLM version is next.</p>
   </div>
 </div>
 
 <section id="work">
-  <h2>What I've built</h2>
+  <h2>Things I work on.</h2>
   <p class="sub">Customer data stays private, so these are described rather than screenshotted.</p>
   <div class="bento">
-    <article class="card blue s4">
-      <h3>Contracting app (PWA)</h3>
-      <p>An installable web app for contracting companies. It runs on a phone like a native app, and customers see their full data and reports inside it.</p>
-      <ul class="mods"><li>Stock enquiry</li><li>Purchase request</li><li>Purchase order</li><li>GRN</li><li>Dashboards</li><li>Reports</li></ul>
+    <article class="card c1">
+      <span class="tag" style="margin-top:0">PWA · Contracting · Sales</span>
+      <h3>Contracting &amp; Sales Hub</h3>
+      <p>The contracting and sales modules of an installable web app. Teams raise requests and orders on the go, and customers see their full data and reports inside it.</p>
+      <ul class="mods"><li>Stock enquiry</li><li>Purchase request</li><li>Purchase order</li><li>GRN</li><li>Sales module</li><li>Reports</li></ul>
+      <div class="kpis"><div class="kpi"><b>Today</b>Sales total</div><div class="kpi"><b>Top 5</b>Best sellers</div><div class="kpi"><b>Live</b>Order status</div></div>
       <div class="bars" aria-hidden="true"><i style="--h:40%"></i><i style="--h:65%"></i><i style="--h:50%"></i><i style="--h:85%"></i><i style="--h:60%"></i><i style="--h:95%"></i></div>
+      <span class="sample">Sales dashboard, illustrative sample</span>
     </article>
-    <article class="card pink s2">
-      <h3>HRMS ERP</h3>
-      <p>A web-based HR system with an HR dashboard and complete employee details.</p>
-      <span class="tag">Dashboard</span><span class="tag">React</span>
+    <article class="card c2">
+      <span class="tag" style="margin-top:0">Enterprise · Web</span>
+      <h3>HRMS people dashboard</h3>
+      <p>An HR dashboard with complete employee details, so HR sees the whole workforce at a glance.</p>
+      <div class="kpis"><div class="kpi"><b>128</b>Headcount</div><div class="kpi"><b>119</b>Present</div><div class="kpi"><b>9</b>On leave</div></div>
+      <ul class="emp"><li><i>AK</i>Engineering<em>Present</em></li><li><i>SM</i>Sales<em>On leave</em></li><li><i>RJ</i>Accounts<em>Present</em></li></ul>
+      <span class="sample">Illustrative sample data</span>
     </article>
-    <article class="card green s2">
-      <h3>Warehouse scanning</h3>
-      <p>A scanning module for warehouse management, so stock is captured at the shelf.</p>
-      <span class="tag">Inventory</span>
+    <article class="card c3">
+      <span class="tag" style="margin-top:0">Warehouse</span>
+      <h3>Scan &amp; stock tracker</h3>
+      <p>A warehouse scanning module with a dashboard, so stock is captured at the shelf and visible straight away.</p>
+      <div class="kpis"><div class="kpi"><b>1,240</b>Scans today</div><div class="kpi"><b>98%</b>Matched</div></div>
+      <ul class="emp"><li><i>✓</i>SKU-4821 · Aisle B3<em>Received</em></li><li><i>✓</i>SKU-1190 · Aisle A1<em>Picked</em></li></ul>
+      <span class="sample">Illustrative sample data</span>
     </article>
-    <article class="card yellow s4">
-      <h3>AI agents (in progress)</h3>
-      <p>Small agents that sit on top of ERP data and answer questions in plain language. The assistant at the top of this page is the first prototype.</p>
+    <article class="card c4">
+      <span class="tag" style="margin-top:0">In progress · AI</span>
+      <h3>AI data assistant</h3>
+      <p>Small AI agents on top of ERP data that answer questions in plain language and show the result as a chart. The assistant on this page is the first prototype.</p>
+      <div class="aimock"><div class="q">Which items sold best this month?</div><div class="a"><div class="bars mini" aria-hidden="true"><i style="--h:95%"></i><i style="--h:72%"></i><i style="--h:55%"></i><i style="--h:38%"></i></div><span>Top sellers, ready to share</span></div></div>
       <span class="tag">AI agents</span><span class="tag">LLM tools</span>
+      <span class="sample">Illustrative mockup</span>
     </article>
-    <article class="card s6">
-      <h3>ERP modules I build</h3>
+    <article class="card c5">
+      <h3>ERP modules I deal with</h3>
       <p>The core modules behind the apps, sharing one database.</p>
       <ul class="mods"><li>Accounting</li><li>Sales &amp; CRM</li><li>Inventory</li><li>Job costing</li><li>Asset management</li><li>POS</li><li>HRMS</li></ul>
     </article>
   </div>
   <div class="stats">
-    <div class="card stat"><b>~4</b><span>years in software</span></div>
-    <div class="card stat"><b>50+</b><span>projects delivered</span></div>
-    <div class="card stat"><b>8</b><span>industries covered</span></div>
+    <div class="stat"><b>~4</b>years in software</div>
+    <div class="stat"><b>50+</b>projects delivered</div>
+    <div class="stat"><b>8</b>industries covered</div>
   </div>
 </section>
 
+<div class="marq" aria-hidden="true"><div id="mq"></div></div>
+
 <section id="industries">
-  <h2>Industries I've worked in</h2>
+  <h2>Industries I've worked in.</h2>
   <p class="sub">Every business moves stock and money differently. I've learned the workflows behind each of these.</p>
   <div class="ind">
     <span><b>🚗</b>Auto spare parts</span><span><b>🚘</b>Limousine</span><span><b>🏗️</b>Contracting</span><span><b>🍎</b>Fruits &amp; vegetable trading</span>
@@ -152,46 +199,51 @@ footer{padding-bottom:40px;text-align:center;color:var(--mute);font-size:14px}
 </section>
 
 <section id="skills">
-  <h2>What I use</h2>
-  <div class="bento" style="margin-top:24px">
-    <div class="card s2"><h3>Front end</h3><p>React, JavaScript, progressive web apps, dashboards</p></div>
-    <div class="card s2"><h3>Data</h3><p>SQL Server, ERP data models, reports and customer data views</p></div>
-    <div class="card s2"><h3>Learning</h3><p>AI agents, LLM integration, prompt design</p></div>
+  <h2>What I build with.</h2>
+  <p class="sub">Front to back: the screens people use, the logic behind them, and the data underneath.</p>
+  <div class="bento">
+    <div class="card" style="grid-column:span 3"><h3>Front end</h3><p>Interfaces that are fast, responsive and installable on a phone.</p>
+      <ul class="mods"><li>HTML5</li><li>CSS3</li><li>JavaScript</li><li>React</li><li>Responsive UI</li><li>PWAs</li><li>Dashboards</li></ul></div>
+    <div class="card" style="grid-column:span 3"><h3>Back end &amp; data</h3><p>The logic and data that power ERP modules and customer reports.</p>
+      <ul class="mods"><li>Python</li><li>SQL Server</li><li>ERP data models</li><li>Reports</li></ul></div>
+    <div class="card" style="grid-column:span 6"><h3>Learning now</h3><p>AI agents, LLM integration and prompt design, to put plain-language assistants on top of ERP data.</p></div>
   </div>
 </section>
 
 <section id="path">
-  <h2>My path</h2>
-  <div class="path" style="margin-top:24px">
-    <div class="card"><em>Now</em><h3>R&amp;D Engineer, FACTS</h3><p>Dubai, UAE. Building ERP modules, PWAs and warehouse tools, and prototyping AI features.</p></div>
-    <div class="card"><em>Next</em><h3>AI agents</h3><p>Working toward an AI-agent certification and shipping agent projects alongside it.</p></div>
-  </div>
-</section>
-
-<section id="education">
-  <h2>Education</h2>
-  <p class="sub">From electronics to computer applications.</p>
-  <div class="edu">
-    <div class="card"><h3>BSc Electronics</h3><p>The hardware and circuits foundation I started from.</p></div>
-    <div class="card"><h3>MCA</h3><p>Master of Computer Applications, where I moved into software.</p></div>
+  <h2>My path.</h2>
+  <p class="sub">The short version.</p>
+  <div class="path">
+    <div><em>Now</em><h3>R&amp;D Engineer, FACTS</h3><p>Dubai, UAE. Working on ERP modules like HRMS, sales, inventory and contracting, plus PWAs, warehouse tools and AI prototypes.</p></div>
+    <div><em>Next</em><h3>AI agents</h3><p>Working toward an AI-agent certification and shipping agent projects alongside it.</p></div>
   </div>
 </section>
 
 <div class="contact" id="contact">
-  <h2>Let's build something useful</h2>
+  <h2>Let's build something useful.</h2>
   <p>Got a workflow that needs fixing? I'd love to hear about it.</p>
-  <p style="margin-top:22px"><a class="btn" href="mailto:YOUR-EMAIL@example.com">Email me</a><a class="btn alt" href="resume.pdf" download>Resume</a><a class="btn alt" href="https://www.linkedin.com/in/YOUR-LINKEDIN" rel="noopener">LinkedIn</a><a class="btn alt" href="https://github.com/neerajanirmal" rel="noopener">GitHub</a></p>
+  <p style="margin-top:22px"><a class="btn" href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=neerajanr31@gmail.com&amp;su=Hello%20Neeraja" target="_blank" rel="noopener">Email me</a><a class="btn alt" href="https://www.linkedin.com/in/neeraja-nair-p/" target="_blank" rel="noopener">LinkedIn</a><a class="btn alt" href="https://github.com/neerajanirmal" target="_blank" rel="noopener">GitHub</a></p>
 </div>
 </main>
 <footer>© 2026 Neeraja · Built in Dubai</footer>
 
 <script>
+addEventListener('pointermove',e=>{const g=document.getElementById('glow');g.style.setProperty('--x',e.clientX+'px');g.style.setProperty('--y',e.clientY+'px')});
+const words=['React','Python','JavaScript','HTML','CSS','SQL Server','PWA','Dashboards','ERP','HRMS','Inventory','Contracting','AI agents'];
+document.getElementById('mq').innerHTML=[...words,...words].map(w=>'<span>'+w+'</span><span>✦</span>').join('');
+// theme toggle (dark by default)
+const root=document.documentElement,tt=document.getElementById('tt');
+function setTheme(t){root.dataset.theme=t;tt.textContent=t==='dark'?'☀️':'🌙';document.querySelector('meta[name=theme-color]').content=t==='dark'?'#16132e':'#f5f2ff'}
+tt.onclick=()=>setTheme(root.dataset.theme==='dark'?'light':'dark');
+// demo agent (scripted)
 const Q={
- 'What does Neeraja build?':'ERP modules for accounting, sales and CRM, inventory, job costing, asset management, POS and HR, plus installable web apps and warehouse tools. About four years in, 50+ projects delivered.',
- 'Which industries?':'Auto spare parts, limousine, contracting, fruits and vegetable trading, textile, construction, trading and logistics, and wholesale distribution.',
- 'Tell me about the contracting app':'It is a PWA with stock enquiry, purchase requests, purchase orders and GRN, plus dashboards. Customers can see their full data and reports in the app.',
+ 'What does Neeraja do?':'She is a full stack web developer at FACTS, an ERP software company. She builds web apps that also work as mobile apps, across modules like HRMS, sales, inventory and contracting, plus dashboards and warehouse tools. About four years in, 50+ projects delivered.',
+ 'Which tech does she use?':'React, JavaScript, HTML and CSS on the front end, Python and SQL Server behind it, plus progressive web apps, and dashboards.',
+ 'What did she study?':'She has a BSc in Electronics, followed by an MCA (Master of Computer Applications).',
+ 'Which all industries does she have experience in?':'She has experience in eight industries: auto spare parts, limousine, contracting, fruits and vegetable trading, textile, construction, trading and logistics, and wholesale distribution.',
+ 'Tell me about her contracting and sales work':'She has worked on the contracting module (stock enquiry, purchase request, purchase order, GRN) and the sales module, with a sales dashboard and reports. Customers can see their full data in the app.',
  'What is she learning next?':'AI agents. She is working toward an AI-agent certification and building agent projects on top of ERP data.',
- 'How do I hire her?':'Use the contact section at the bottom of this page, or download her resume.'
+ 'How do I reach her?':'Use the Email me, LinkedIn or GitHub buttons in the contact section at the bottom of this page.'
 };
 const log=document.getElementById('log'),chips=document.getElementById('chips');
 function add(t,c){const d=document.createElement('div');d.className='m '+c;d.textContent=t;log.appendChild(d);log.scrollTop=log.scrollHeight;return d}
